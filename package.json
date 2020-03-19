@@ -9,6 +9,7 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
+    "commit": "git-cz",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -25,6 +26,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
     "jsdoc": "^3.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
