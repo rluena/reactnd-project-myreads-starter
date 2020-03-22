@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Select from "../../Elements/Select";
 import "./card.css";
 
@@ -23,6 +24,16 @@ const Card = ({ style, title, author }) => {
       <div className="book__authors">{author}</div>
     </div>
   );
+};
+
+Card.defaultProps = {
+  style: {}
+};
+
+Card.propTypes = {
+  style: PropTypes.objectOf(PropTypes.any),
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
 };
 
 export default Card;
