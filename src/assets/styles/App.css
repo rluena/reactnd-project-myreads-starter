@@ -115,3 +115,9 @@ body,
   padding: 10px 15px;
   text-align: left;
 }
+
+/* Spinner */
+
+.spinner__container {
+  margin: 0px auto;
+}
