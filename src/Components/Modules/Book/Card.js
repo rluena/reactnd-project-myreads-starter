@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Select from "../../Elements/Select";
 import "./card.css";
 
-const Card = ({ style, title, author }) => {
+const Card = ({ style, title, authors }) => {
   return (
     <div className="book">
       <div className="book__top">
@@ -21,7 +21,13 @@ const Card = ({ style, title, author }) => {
         </div>
       </div>
       <div className="book__title">{title}</div>
-      <div className="book__authors">{author}</div>
+      <div className="book__authors">
+        {authors.map((author, idx) => {
+          const key = `card_author_${idx}`;
+
+          return <span key={key}>{author}</span>;
+        })}
+      </div>
     </div>
   );
 };
@@ -33,7 +39,7 @@ Card.defaultProps = {
 Card.propTypes = {
   style: PropTypes.objectOf(PropTypes.any),
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
+  authors: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default Card;
