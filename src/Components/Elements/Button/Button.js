@@ -1,18 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getClassNames } from "../../../utils";
 import "./button.css";
 
-/**
- * Generating classNames for the button based on the BEM modifiers.
- *
- * @param {Array} variant Array of viarant the can be used to generate classNames
- * @returns {string}
- */
-const getClassNames = modifiers =>
-  modifiers.map(modifier => `button--${modifier}`).join(" ");
-
-const Button = ({ name, variant, children, ...props }) => {
-  const classNames = getClassNames(variant);
+const Button = ({ name, modifiers, children, ...props }) => {
+  const classNames = getClassNames("button", modifiers);
 
   return (
     <button className={`button ${classNames}`} {...props}>
@@ -22,11 +14,12 @@ const Button = ({ name, variant, children, ...props }) => {
 };
 
 Button.defaultProps = {
-  children: null
+  children: null,
+  modifiers: []
 };
 
 Button.propTypes = {
-  variant: PropTypes.arrayOf(PropTypes.string).isRequired,
+  modifiers: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node
 };
 
