@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Bookshelf from "../components/Bookshelf";
 import { withRouter } from "react-router-dom";
+import Bookshelf from "../../Components/Bookshelf";
+import Button from "../../Components/Elements/Button";
 
 class Home extends Component {
   render() {
@@ -17,9 +18,12 @@ class Home extends Component {
           </div>
         </div>
         <div className="open-search">
-          <button onClick={() => this.props.history.push("/search")}>
+          <Button
+            onClick={() => this.props.history.push("/search")}
+            variant={["primary", "circle", "search"]}
+          >
             Add a book
-          </button>
+          </Button>
         </div>
       </div>
     );
