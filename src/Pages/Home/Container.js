@@ -20,7 +20,7 @@ class Home extends Component {
         <div className="open-search">
           <Button
             onClick={() => this.props.history.push("/search")}
-            variant={["primary", "circle", "search"]}
+            modifiers={["primary", "circle", "search"]}
           >
             Add a book
           </Button>
