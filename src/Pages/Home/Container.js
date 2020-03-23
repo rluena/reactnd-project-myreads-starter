@@ -27,7 +27,6 @@ class Home extends Component {
       }
     } catch (error) {
       this.setState({ isLoading: false, error });
-      console.error(error);
     }
   };
 
@@ -39,7 +38,6 @@ class Home extends Component {
    */
   updateBookShelf = async (bookId, shelf) => {
     try {
-      console.log(bookId, shelf);
       // Showing loader when updating content
       this.setState({ isLoading: true });
       const response = await update(bookId, shelf);
