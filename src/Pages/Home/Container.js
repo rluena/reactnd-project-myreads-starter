@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { getAll } from "../../BooksAPI";
+import { getAll, update } from "../../BooksAPI";
 import Bookshelf from "../../Components/Bookshelf";
 import Button from "../../Components/Elements/Button";
 import Spinner from "../../Components/Modules/Spinner";
@@ -13,13 +13,42 @@ class Home extends Component {
   };
 
   componentDidMount = async () => {
+    await this.getAllBooks();
+  };
+
+  /**
+   * Retreiving all user's books from the API
+   */
+  getAllBooks = async () => {
     try {
       const data = await getAll();
       if (data && data.length) {
         this.setState({ books: data, isLoading: false });
       }
     } catch (error) {
-      console.error(error);
+      this.setState({ isLoading: false, error });
+    }
+  };
+
+  /**
+   * Method to move a book from on shelf to another using the API
+   *
+   * @param {string} bookId An ID of the book.
+   * @param {string} shelf Identifier for a shelf book should be moved to.
+   */
+  updateBookShelf = async (bookId, shelf) => {
+    try {
+      // Showing loader when updating content
+      this.setState({ isLoading: true });
+      const response = await update(bookId, shelf);
+
+      if (response) {
+        // We have to retreive all books again
+        // to get new updated values from the API.
+        await this.getAllBooks();
+      }
+    } catch (error) {
+      this.setState({ isLoading: false, error });
     }
   };
 
@@ -45,9 +74,18 @@ class Home extends Component {
               <Bookshelf
                 title="Currently Reading"
                 books={currentlyReadingBooks}
+                updateBookShelf={this.updateBookShelf}
               />
-              <Bookshelf title="Want to Read" books={wantToReadBooks} />
-              <Bookshelf title="Read" books={readBooks} />
+              <Bookshelf
+                title="Want to Read"
+                books={wantToReadBooks}
+                updateBookShelf={this.updateBookShelf}
+              />
+              <Bookshelf
+                title="Read"
+                books={readBooks}
+                updateBookShelf={this.updateBookShelf}
+              />
             </div>
           ) : (
             <div className="spinner__container">
