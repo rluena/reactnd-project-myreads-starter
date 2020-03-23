@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { getAll } from "../../BooksAPI";
 import Bookshelf from "../../Components/Bookshelf";
 import Button from "../../Components/Elements/Button";
-import Spinner from "../../Components/Vendors/Spinner";
+import Spinner from "../../Components/Modules/Spinner";
 
 class Home extends Component {
   state = {
@@ -40,7 +40,7 @@ class Home extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          {!isLoading ? (
+          {isLoading ? (
             <div>
               <Bookshelf
                 title="Currently Reading"
