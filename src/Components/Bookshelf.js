@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import BookCard from "./Modules/Book";
 
-const Bookshelf = ({ title, books }) => {
+const Bookshelf = ({ title, books, updateBookShelf }) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
@@ -15,11 +15,14 @@ const Bookshelf = ({ title, books }) => {
                   title={book.title}
                   author="Harper Lee"
                   authors={book.authors}
+                  bookId={book.id}
+                  shelf={book.shelf}
                   style={{
                     width: 128,
                     height: 193,
                     backgroundImage: `url(${book.imageLinks.thumbnail})`
                   }}
+                  updateBookShelf={updateBookShelf}
                 />
               </li>
             );
@@ -31,7 +34,8 @@ const Bookshelf = ({ title, books }) => {
 };
 
 Bookshelf.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  updateBookShelf: PropTypes.func.isRequired
 };
 
 export default Bookshelf;
