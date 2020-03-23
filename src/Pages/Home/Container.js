@@ -16,6 +16,9 @@ class Home extends Component {
     await this.getAllBooks();
   };
 
+  /**
+   * Retreiving all user's books from the API
+   */
   getAllBooks = async () => {
     try {
       const data = await getAll();
@@ -28,6 +31,12 @@ class Home extends Component {
     }
   };
 
+  /**
+   * Method to move a book from on shelf to another using the API
+   *
+   * @param {string} bookId An ID of the book.
+   * @param {string} shelf Identifier for a shelf book should be moved to.
+   */
   updateBookShelf = async (bookId, shelf) => {
     try {
       console.log(bookId, shelf);
