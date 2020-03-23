@@ -35,7 +35,8 @@ const Bookshelf = ({ title, books, updateBookShelf }) => {
 
 Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
-  updateBookShelf: PropTypes.func.isRequired
+  updateBookShelf: PropTypes.func.isRequired,
+  books: PropTypes.arrayOf(PropTypes.any).isRequired
 };
 
 export default Bookshelf;

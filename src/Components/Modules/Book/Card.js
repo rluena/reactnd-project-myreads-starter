@@ -53,7 +53,9 @@ Card.propTypes = {
   style: PropTypes.objectOf(PropTypes.any),
   title: PropTypes.string.isRequired,
   authors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  bookId: PropTypes.string.isRequired
+  bookId: PropTypes.string.isRequired,
+  shelf: PropTypes.string.isRequired,
+  updateBookShelf: PropTypes.func.isRequired
 };
 
 export default Card;
