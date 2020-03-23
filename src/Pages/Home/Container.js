@@ -40,7 +40,7 @@ class Home extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          {isLoading ? (
+          {!isLoading ? (
             <div>
               <Bookshelf
                 title="Currently Reading"
