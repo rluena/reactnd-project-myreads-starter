@@ -10,7 +10,7 @@ class Search extends Component {
 
   inputHandler = evt => {
     const { value } = evt.target;
-    const search = debounce(this.props.searchABookByAuthorOrTitle, 1000);
+    const search = debounce(this.props.searchABookByAuthorOrTitle, 1500);
     search(value.trim());
     this.setState({ input: value });
   };
