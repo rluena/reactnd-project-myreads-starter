@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { debounce } from "lodash";
 import Text from "../../Components/Elements/Text";
 
 class Search extends Component {
@@ -6,7 +8,12 @@ class Search extends Component {
     input: ""
   };
 
-  inputHandler = () => {};
+  inputHandler = evt => {
+    const { value } = evt.target;
+    const search = debounce(this.props.searchABookByAuthorOrTitle, 1000);
+    search(value.trim());
+    this.setState({ input: value });
+  };
 
   render() {
     return (
@@ -22,10 +29,15 @@ class Search extends Component {
         <Text
           placeholder="Search by title or author"
           onChange={this.inputHandler}
+          value={this.state.input}
         />
       </div>
     );
   }
 }
+
+Search.propTypes = {
+  searchABookByAuthorOrTitle: PropTypes.func.isRequired
+};
 
 export default Search;
