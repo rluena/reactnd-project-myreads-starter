@@ -48,7 +48,7 @@ class Search extends Component {
   updateBookShelf = async (bookId, shelf) => {
     try {
       // Showing loader when updating content
-      // this.setState({ isLoading: true });
+      this.setState({ isLoading: true });
       const response = await update(bookId, shelf);
 
       if (response) {
@@ -56,7 +56,6 @@ class Search extends Component {
         // to get new updated values from the API.
         await this.searchABookByAuthorOrTitle(this.state.searchQuery);
       }
-      // this.setState({ isLoading: false });
     } catch (error) {
       this.setState({ isLoading: false, error });
     }
@@ -68,16 +67,13 @@ class Search extends Component {
         <SearchBooksBar
           searchABookByAuthorOrTitle={this.searchABookByAuthorOrTitle}
         />
-        {!this.state.isLoading ? (
-          <SearchResult
-            books={this.state.books}
-            updateBookShelf={this.updateBookShelf}
-          />
-        ) : (
-          <div className="spinner__container">
-            <Spinner />
-          </div>
-        )}
+        {/* Showing spinner when search is requested */}
+        {this.state.isLoading && <Spinner />}
+
+        <SearchResult
+          books={this.state.books}
+          updateBookShelf={this.updateBookShelf}
+        />
       </div>
     );
   }
