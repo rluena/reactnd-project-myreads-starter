@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { search } from "../../BooksAPI";
+import { search, update } from "../../BooksAPI";
+import Spinner from "../../Components/Modules/Spinner";
 import SearchResult from "./SearchResult";
 import SearchBooksBar from "./SearchBooksBar";
 
@@ -7,7 +8,7 @@ class Search extends Component {
   state = {
     books: [],
     error: null,
-    isSearching: false
+    isLoading: false
   };
 
   /**
@@ -18,19 +19,46 @@ class Search extends Component {
    */
   searchABookByAuthorOrTitle = async value => {
     try {
-      this.setState({ isSearching: true });
+      this.setState({ isLoading: true });
       const books = await search(value);
 
       if (!Array.isArray(books) && books.error) {
-        this.setState({ isSearching: false, error: books.error });
+        this.setState({
+          isLoading: false,
+          error: books.error,
+          searchQuery: null
+        });
         return;
       }
 
       if (Array.isArray(books) && books.length) {
-        this.setState({ books, isSearching: false });
+        this.setState({ books, isLoading: false, searchQuery: value });
       }
     } catch (error) {
-      this.setState({ error: false, isSearching: false });
+      this.setState({ books: [], error: false, isLoading: false });
+    }
+  };
+
+  /**
+   * Method to move a book from on shelf to another using the API
+   *
+   * @param {string} bookId An ID of the book.
+   * @param {string} shelf Identifier for a shelf book should be moved to.
+   */
+  updateBookShelf = async (bookId, shelf) => {
+    try {
+      // Showing loader when updating content
+      // this.setState({ isLoading: true });
+      const response = await update(bookId, shelf);
+
+      if (response) {
+        // We have to retreive all books again
+        // to get new updated values from the API.
+        await this.searchABookByAuthorOrTitle(this.state.searchQuery);
+      }
+      // this.setState({ isLoading: false });
+    } catch (error) {
+      this.setState({ isLoading: false, error });
     }
   };
 
@@ -40,7 +68,16 @@ class Search extends Component {
         <SearchBooksBar
           searchABookByAuthorOrTitle={this.searchABookByAuthorOrTitle}
         />
-        <SearchResult />
+        {!this.state.isLoading ? (
+          <SearchResult
+            books={this.state.books}
+            updateBookShelf={this.updateBookShelf}
+          />
+        ) : (
+          <div className="spinner__container">
+            <Spinner />
+          </div>
+        )}
       </div>
     );
   }
