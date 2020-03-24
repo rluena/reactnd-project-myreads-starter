@@ -48,6 +48,7 @@ const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
 
 Card.defaultProps = {
   style: {},
+  shelf: undefined,
   authors: []
 };
 
@@ -56,7 +57,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   authors: PropTypes.arrayOf(PropTypes.string),
   bookId: PropTypes.string.isRequired,
-  shelf: PropTypes.string.isRequired,
+  shelf: PropTypes.string,
   updateBookShelf: PropTypes.func.isRequired
 };
 
