@@ -7,7 +7,7 @@ const Button = ({ name, modifiers, children, ...props }) => {
   const classNames = getClassNames("button", modifiers);
 
   return (
-    <button className={`button ${classNames}`} {...props}>
+    <button type="button" className={`button ${classNames}`} {...props}>
       {children && children}
     </button>
   );
