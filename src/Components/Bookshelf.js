@@ -13,7 +13,6 @@ const Bookshelf = ({ title, books, updateBookShelf }) => {
               <li key={book.id}>
                 <BookCard
                   title={book.title}
-                  author="Harper Lee"
                   authors={book.authors}
                   bookId={book.id}
                   shelf={book.shelf}
