@@ -1,5 +1,6 @@
 .button {
   display: block;
+  min-width: 55px;
 }
 
 .button:hover {
@@ -25,4 +26,19 @@
   background-size: 28px;
   font-size: 0;
   outline: 0;
+}
+
+.button--back {
+  background-image: url("../../../assets/icons//arrow-back.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+  border: none;
+  outline: none;
+}
+
+.button--back:hover {
+  opacity: 80%;
+  background-color: #cecbcb;
 }

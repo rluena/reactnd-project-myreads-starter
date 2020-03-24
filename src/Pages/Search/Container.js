@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import Button from "./../../Components/Elements/Button";
 
 class Search extends Component {
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button
+          <Button
             type="button"
-            className="close-search"
             onClick={() => this.props.history.push("/")}
+            modifiers={["back"]}
           >
             Close
-          </button>
+          </Button>
           <div className="search-books-input-wrapper">
             {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
