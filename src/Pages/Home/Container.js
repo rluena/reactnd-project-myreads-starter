@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { persistBooksIdsFromShelves } from "../../utils/index";
 import { getAll, update } from "../../BooksAPI";
 import Bookshelf from "../../Components/Bookshelf";
 import Button from "../../Components/Elements/Button";
@@ -22,7 +23,7 @@ class Home extends Component {
   getAllBooks = async () => {
     try {
       const data = await getAll();
-      if (data && data.length) {
+      if (data) {
         this.setState({ books: data, isLoading: false });
       }
     } catch (error) {
@@ -45,6 +46,7 @@ class Home extends Component {
       if (response) {
         // We have to retreive all books again
         // to get new updated values from the API.
+        persistBooksIdsFromShelves(response);
         await this.getAllBooks();
       }
     } catch (error) {
