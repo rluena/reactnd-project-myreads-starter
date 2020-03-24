@@ -7,7 +7,7 @@ const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
   return (
     <div className="book">
       <div className="book__top">
-        <div className="book__cover" style={style}></div>
+        <div className="book__cover" style={style ? style : {}}></div>
         <div className="book__shelf-changer">
           <Select
             value={shelf}
@@ -35,24 +35,26 @@ const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
       </div>
       <div className="book__title">{title}</div>
       <div className="book__authors">
-        {authors.map((author, idx) => {
-          const key = `card_author_${idx}`;
+        {authors &&
+          authors.map((author, idx) => {
+            const key = `card_author_${idx}`;
 
-          return <span key={key}>{author}</span>;
-        })}
+            return <span key={key}>{author}</span>;
+          })}
       </div>
     </div>
   );
 };
 
 Card.defaultProps = {
-  style: {}
+  style: {},
+  authors: []
 };
 
 Card.propTypes = {
   style: PropTypes.objectOf(PropTypes.any),
   title: PropTypes.string.isRequired,
-  authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  authors: PropTypes.arrayOf(PropTypes.string),
   bookId: PropTypes.string.isRequired,
   shelf: PropTypes.string.isRequired,
   updateBookShelf: PropTypes.func.isRequired
