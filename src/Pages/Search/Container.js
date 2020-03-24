@@ -1,13 +1,18 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 class Search extends Component {
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" href="/">
+          <button
+            type="button"
+            className="close-search"
+            onClick={() => this.props.history.push("/")}
+          >
             Close
-          </a>
+          </button>
           <div className="search-books-input-wrapper">
             {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -28,4 +33,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default withRouter(Search);
