@@ -86,31 +86,30 @@ class Home extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
+
+        {/* START: LISTING BOOK SHELVES */}
         <div className="list-books-content">
-          {!isLoading ? (
-            <div>
-              <Bookshelf
-                title="Currently Reading"
-                books={currentlyReadingBooks}
-                updateBookShelf={this.updateBookShelf}
-              />
-              <Bookshelf
-                title="Want to Read"
-                books={wantToReadBooks}
-                updateBookShelf={this.updateBookShelf}
-              />
-              <Bookshelf
-                title="Read"
-                books={readBooks}
-                updateBookShelf={this.updateBookShelf}
-              />
-            </div>
-          ) : (
-            <div className="spinner__container">
-              <Spinner />
-            </div>
-          )}
+          <div>
+            <Bookshelf
+              title="Currently Reading"
+              books={currentlyReadingBooks}
+              updateBookShelf={this.updateBookShelf}
+            />
+            <Bookshelf
+              title="Want to Read"
+              books={wantToReadBooks}
+              updateBookShelf={this.updateBookShelf}
+            />
+            <Bookshelf
+              title="Read"
+              books={readBooks}
+              updateBookShelf={this.updateBookShelf}
+            />
+          </div>
         </div>
+        {/* END: LISTING BOOK SHELVES */}
+
+        {/* START: SEARCH BUTTON */}
         <div className="open-search">
           <Button
             onClick={() => this.props.history.push("/search")}
@@ -119,6 +118,11 @@ class Home extends Component {
             Add a book
           </Button>
         </div>
+        {/* END: SEARCH BUTTON */}
+
+        {/* START: SEARCH LOADER/SPINNER */}
+        {isLoading && <Spinner />}
+        {/* END: SEARCH LOADER/SPINNER */}
       </div>
     );
   }
