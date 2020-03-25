@@ -65,17 +65,22 @@ class Search extends Component {
       this.setState({ isLoading: true });
       const response = await update(bookId, shelf);
 
-      if (response) {
-        // Persisting ID's of the books in shelfves in the localStorage.
-        // You can check on the function's comment to
-        // grasp the reason why we do this.
+      // Sometimes update fails returns an error.
+      if (response && !response.error) {
+        // Everytime shelf is updated, we persist new updates in localStorage.
         persistBooksIdsFromShelves(response);
 
-        // Checking if a book is already in a particular shelf and assign or update
-        // `book.shelf` property to a different value.
-        const checkedBooks = checkIfBooksAreInUserShelves(this.state.books);
-        this.setState({ books: checkedBooks, isLoading: false });
+        // Updating books' shelves status.
+        const updatedBooks = checkIfBooksAreInUserShelves(this.state.books);
+        this.setState({ books: updatedBooks, isLoading: false });
       }
+
+      this.setState({
+        isLoading: false,
+        error: response.error
+          ? response.error
+          : "There is an error please try again in a minute."
+      });
     } catch (error) {
       this.setState({ isLoading: false, error });
     }

@@ -49,11 +49,22 @@ class Home extends Component {
       this.setState({ isLoading: true });
       const response = await update(bookId, shelf);
 
-      if (response) {
+      // Sometimes update fails returns an error.
+      if (response && !response.error) {
+        // Everytime shelf is updated, we persist new updates in localStorage.
         persistBooksIdsFromShelves(response);
-        const checkedBooks = checkIfBooksAreInUserShelves(this.state.books);
-        this.setState({ books: checkedBooks, isLoading: false });
+
+        // Updating books' shelves status.
+        const updatedBooks = checkIfBooksAreInUserShelves(this.state.books);
+        this.setState({ books: updatedBooks, isLoading: false });
       }
+
+      this.setState({
+        isLoading: false,
+        error: response.error
+          ? response.error
+          : "There is an error please try again in a minute."
+      });
     } catch (error) {
       this.setState({ isLoading: false, error });
     }
