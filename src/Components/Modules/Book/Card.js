@@ -20,7 +20,7 @@ const Card = ({ book, updateBookShelf }) => {
         <div className="book__shelf-changer">
           <Select
             value={shelf}
-            modifiers={["buttoned"]}
+            modifiers={["rounded"]}
             onChange={evt => updateBookShelf(bookId, evt.target.value)}
           >
             <option value="move" disabled>
