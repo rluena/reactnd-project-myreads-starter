@@ -65,3 +65,12 @@ export const checkIfBooksAreInUserShelves = (books = []) => {
 
   return books;
 };
+
+/**
+ * Filtering books without thumbnails
+ *
+ * @param {Array} books
+ * @returns {Array} Returns only books with thumbnails
+ */
+export const filterBooksWithoutThumbnail = (books = []) =>
+  books.filter(book => book.imageLinks && book.imageLinks.thumbnail);

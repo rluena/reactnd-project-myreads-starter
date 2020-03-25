@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { search, update } from "../../BooksAPI";
 import {
   checkIfBooksAreInUserShelves,
-  persistBooksIdsFromShelves
+  persistBooksIdsFromShelves,
+  filterBooksWithoutThumbnail
 } from "../../utils";
 import Spinner from "../../Components/Modules/Spinner";
 import SearchResult from "./SearchResult";
@@ -38,9 +39,12 @@ class Search extends Component {
       // Sometimes response value is an object when error returned by an API.
       // Which was suppose to be caught as an error and handled down below.
       if (Array.isArray(response)) {
+        // Filter books without thumbnail
+        const filteredBooks = filterBooksWithoutThumbnail(response);
+
         // Result from from search api do not show shelf status of a book. From
         // that case we shold check if a book is already added in any user's shelf.
-        const checkedBooks = checkIfBooksAreInUserShelves(response);
+        const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
 
         this.setState({
           books: checkedBooks,
