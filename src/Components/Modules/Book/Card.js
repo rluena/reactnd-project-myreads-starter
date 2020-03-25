@@ -46,12 +46,7 @@ const Card = ({ book, updateBookShelf }) => {
       </div>
       <div className="book__title">{title}</div>
       <div className="book__authors">
-        {authors &&
-          authors.map((author, idx) => {
-            const key = `card_author_${idx}`;
-
-            return <span key={key}>{author}</span>;
-          })}
+        {authors && authors.length && authors.join(", ").toString()}
       </div>
     </div>
   );
