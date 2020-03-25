@@ -26,30 +26,28 @@ class Search extends Component {
     try {
       this.setState({ isLoading: true });
 
-      if (value && value.length) {
-        const response = await search(value);
+      const response = await search(value);
 
-        // Sometimes response value is an object when error returned by an API.
-        // Which was suppose to be caught as an error and handled down below.
-        if (Array.isArray(response)) {
-          // Filter books without thumbnail
-          const filteredBooks = filterBooksWithoutThumbnail(response);
+      // Sometimes response value is an object when error returned by an API.
+      // Which was suppose to be caught as an error and handled down below.
+      if (Array.isArray(response)) {
+        // Filter books without thumbnail
+        const filteredBooks = filterBooksWithoutThumbnail(response);
 
-          // Result from from search api do not show shelf status of a book. From
-          // that case we shold check if a book is already added in any user's shelf.
-          const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
+        // Result from from search api do not show shelf status of a book. From
+        // that case we shold check if a book is already added in any user's shelf.
+        const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
 
-          this.setState({
-            books: checkedBooks,
-            isLoading: false,
-            error: null
-          });
+        this.setState({
+          books: checkedBooks,
+          isLoading: false,
+          error: null
+        });
 
-          return;
-        }
+        return;
       }
 
-      // If search fails we empty previous result
+      // If search fails we empty previous result.
       this.setState({ isLoading: false, books: [] });
     } catch (error) {
       this.setState({ books: [], error, isLoading: false });
