@@ -4,7 +4,7 @@ import Book from "../../Components/Modules/Book";
 
 const SearchResult = ({ books, updateBookShelf }) => {
   return (
-    <div className="search-books-results">
+    <div className="search-books__results">
       <ol className="books-grid">
         {books &&
           books.length > 1 &&

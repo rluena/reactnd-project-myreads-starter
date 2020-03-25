@@ -6,7 +6,7 @@ import Button from "../../Components/Elements/Button";
 
 const SearchBooksBar = ({ searchABookByAuthorOrTitle, history }) => {
   return (
-    <div className="search-books-bar">
+    <div className="search-books__search-bar">
       <Button onClick={() => history.push("/")} modifiers={["back"]}>
         Close
       </Button>

@@ -8,6 +8,7 @@ import {
 import Spinner from "../../Components/Modules/Spinner";
 import SearchResult from "./SearchResult";
 import SearchBooksBar from "./SearchBooksBar";
+import "./search.css";
 
 class Search extends Component {
   state = {

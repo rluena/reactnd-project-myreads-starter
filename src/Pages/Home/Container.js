@@ -8,6 +8,7 @@ import { getAll, update } from "../../BooksAPI";
 import Bookshelf from "../../Components/Bookshelf";
 import Button from "../../Components/Elements/Button";
 import Spinner from "../../Components/Modules/Spinner";
+import "./main.css";
 
 class Home extends Component {
   state = {
@@ -83,12 +84,12 @@ class Home extends Component {
 
     return (
       <div className="list-books">
-        <div className="list-books-title">
+        <div className="list-books__title">
           <h1>MyReads</h1>
         </div>
 
         {/* START: LISTING BOOK SHELVES */}
-        <div className="list-books-content">
+        <div className="list-books__content">
           <div>
             <Bookshelf
               title="Currently Reading"

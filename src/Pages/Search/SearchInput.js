@@ -17,7 +17,7 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="search-books-input-wrapper">
+      <div className="search-books__input-wrapper">
         {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
                   You can find these search terms here:
