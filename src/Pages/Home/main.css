@@ -14,3 +14,9 @@
   padding: 0 0 80px;
   flex: 1;
 }
+
+.open-search {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+}
