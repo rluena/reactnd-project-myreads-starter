@@ -25,33 +25,32 @@ class Search extends Component {
   searchABookByAuthorOrTitle = async value => {
     try {
       this.setState({ isLoading: true });
-      const response = await search(value);
 
-      if (!Array.isArray(response) && response.error) {
-        this.setState({
-          isLoading: false,
-          error: response.error,
-          searchQuery: null
-        });
-        return;
+      if (value && value.length) {
+        const response = await search(value);
+
+        // Sometimes response value is an object when error returned by an API.
+        // Which was suppose to be caught as an error and handled down below.
+        if (Array.isArray(response)) {
+          // Filter books without thumbnail
+          const filteredBooks = filterBooksWithoutThumbnail(response);
+
+          // Result from from search api do not show shelf status of a book. From
+          // that case we shold check if a book is already added in any user's shelf.
+          const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
+
+          this.setState({
+            books: checkedBooks,
+            isLoading: false,
+            error: null
+          });
+
+          return;
+        }
       }
 
-      // Sometimes response value is an object when error returned by an API.
-      // Which was suppose to be caught as an error and handled down below.
-      if (Array.isArray(response)) {
-        // Filter books without thumbnail
-        const filteredBooks = filterBooksWithoutThumbnail(response);
-
-        // Result from from search api do not show shelf status of a book. From
-        // that case we shold check if a book is already added in any user's shelf.
-        const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
-
-        this.setState({
-          books: checkedBooks,
-          isLoading: false,
-          searchQuery: value
-        });
-      }
+      // If search fails we empty previous result
+      this.setState({ isLoading: false, books: [] });
     } catch (error) {
       this.setState({ books: [], error, isLoading: false });
     }
