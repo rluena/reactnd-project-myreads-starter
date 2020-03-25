@@ -3,11 +3,20 @@ import PropTypes from "prop-types";
 import Select from "../../Elements/Select";
 import "./card.css";
 
-const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
+const Card = ({ book, updateBookShelf }) => {
+  const { shelf, title, authors, id: bookId } = book;
+
   return (
     <div className="book">
       <div className="book__top">
-        <div className="book__cover" style={style ? style : {}}></div>
+        <div
+          className="book__cover"
+          style={{
+            width: 128,
+            height: 193,
+            backgroundImage: `url(${book.imageLinks.thumbnail})`
+          }}
+        ></div>
         <div className="book__shelf-changer">
           <Select
             value={shelf}
@@ -48,18 +57,8 @@ const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
   );
 };
 
-Card.defaultProps = {
-  style: {},
-  shelf: undefined,
-  authors: []
-};
-
 Card.propTypes = {
-  style: PropTypes.objectOf(PropTypes.any),
-  title: PropTypes.string.isRequired,
-  authors: PropTypes.arrayOf(PropTypes.string),
-  bookId: PropTypes.string.isRequired,
-  shelf: PropTypes.string,
+  book: PropTypes.objectOf(PropTypes.any).isRequired,
   updateBookShelf: PropTypes.func.isRequired
 };
 

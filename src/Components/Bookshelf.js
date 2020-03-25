@@ -11,18 +11,7 @@ const Bookshelf = ({ title, books, updateBookShelf }) => {
           {books.map(book => {
             return (
               <li key={book.id}>
-                <BookCard
-                  title={book.title}
-                  authors={book.authors}
-                  bookId={book.id}
-                  shelf={book.shelf}
-                  style={{
-                    width: 128,
-                    height: 193,
-                    backgroundImage: `url(${book.imageLinks.thumbnail})`
-                  }}
-                  updateBookShelf={updateBookShelf}
-                />
+                <BookCard book={book} updateBookShelf={updateBookShelf} />
               </li>
             );
           })}
@@ -35,7 +24,7 @@ const Bookshelf = ({ title, books, updateBookShelf }) => {
 Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
   updateBookShelf: PropTypes.func.isRequired,
-  books: PropTypes.arrayOf(PropTypes.any).isRequired
+  books: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired
 };
 
 export default Bookshelf;

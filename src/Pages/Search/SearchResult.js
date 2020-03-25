@@ -12,18 +12,7 @@ const SearchResult = ({ books, updateBookShelf }) => {
             const key = `result_${book.id}`;
             return (
               <li key={key}>
-                <Book
-                  title={book.title}
-                  authors={book.authors}
-                  bookId={book.id}
-                  shelf={book.shelf}
-                  style={{
-                    width: 128,
-                    height: 193,
-                    backgroundImage: `url(${book.imageLinks.thumbnail})`
-                  }}
-                  updateBookShelf={updateBookShelf}
-                />
+                <Book book={book} updateBookShelf={updateBookShelf} />
               </li>
             );
           })}
