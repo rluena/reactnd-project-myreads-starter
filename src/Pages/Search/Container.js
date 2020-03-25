@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { search, update } from "../../BooksAPI";
+import {
+  checkIfBooksAreInUserShelves,
+  persistBooksIdsFromShelves
+} from "../../utils";
 import Spinner from "../../Components/Modules/Spinner";
 import SearchResult from "./SearchResult";
 import SearchBooksBar from "./SearchBooksBar";
@@ -20,22 +24,32 @@ class Search extends Component {
   searchABookByAuthorOrTitle = async value => {
     try {
       this.setState({ isLoading: true });
-      const books = await search(value);
+      const response = await search(value);
 
-      if (!Array.isArray(books) && books.error) {
+      if (!Array.isArray(response) && response.error) {
         this.setState({
           isLoading: false,
-          error: books.error,
+          error: response.error,
           searchQuery: null
         });
         return;
       }
 
-      if (Array.isArray(books) && books.length) {
-        this.setState({ books, isLoading: false, searchQuery: value });
+      // Sometimes response value is an object when error returned by an API.
+      // Which was suppose to be caught as an error and handled down below.
+      if (Array.isArray(response)) {
+        // Result from from search api do not show shelf status of a book. From
+        // that case we shold check if a book is already added in any user's shelf.
+        const checkedBooks = checkIfBooksAreInUserShelves(response);
+
+        this.setState({
+          books: checkedBooks,
+          isLoading: false,
+          searchQuery: value
+        });
       }
     } catch (error) {
-      this.setState({ books: [], error: false, isLoading: false });
+      this.setState({ books: [], error, isLoading: false });
     }
   };
 
@@ -52,9 +66,15 @@ class Search extends Component {
       const response = await update(bookId, shelf);
 
       if (response) {
-        // We have to retreive all books again
-        // to get new updated values from the API.
-        await this.searchABookByAuthorOrTitle(this.state.searchQuery);
+        // Persisting ID's of the books in shelfves in the localStorage.
+        // You can check on the function's comment to
+        // grasp the reason why we do this.
+        persistBooksIdsFromShelves(response);
+
+        // Checking if a book is already in a particular shelf and assign or update
+        // `book.shelf` property to a different value.
+        const checkedBooks = checkIfBooksAreInUserShelves(this.state.books);
+        this.setState({ books: checkedBooks, isLoading: false });
       }
     } catch (error) {
       this.setState({ isLoading: false, error });

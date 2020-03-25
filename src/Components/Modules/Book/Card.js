@@ -29,7 +29,7 @@ const Card = ({ style, title, authors, shelf, bookId, updateBookShelf }) => {
             <option value="read" disabled={shelf === "read"}>
               Read
             </option>
-            <option value="none" disabled={!shelf}>
+            <option value="none" disabled={!shelf || shelf === "none"}>
               None
             </option>
           </Select>
