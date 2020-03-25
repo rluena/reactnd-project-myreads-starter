@@ -1,9 +1,18 @@
+/**
+ * @module Pages/SearchBooksBar
+ */
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import SearchInput from "./SearchInput";
 import Button from "../../Components/Elements/Button";
 
+/**
+ * React component for search bar.
+ *
+ * @description Subcomponent of Search component
+ * @param {Object} props
+ */
 const SearchBooksBar = ({ searchABookByAuthorOrTitle, history }) => {
   return (
     <div className="search-books__search-bar">

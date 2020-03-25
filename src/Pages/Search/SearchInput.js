@@ -1,9 +1,16 @@
+/**
+ * @module Pages/SearchInput
+ */
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "lodash";
 import Text from "../../Components/Elements/Text";
 
-class Search extends Component {
+/**
+ * React component that render search input
+ */
+class SearchInput extends Component {
   state = {
     input: ""
   };
@@ -36,8 +43,8 @@ class Search extends Component {
   }
 }
 
-Search.propTypes = {
+SearchInput.propTypes = {
   searchABookByAuthorOrTitle: PropTypes.func.isRequired
 };
 
-export default Search;
+export default SearchInput;

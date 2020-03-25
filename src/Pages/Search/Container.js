@@ -1,3 +1,7 @@
+/**
+ * @module Pages/Search
+ */
+
 import React, { Component } from "react";
 import { search, update } from "../../BooksAPI";
 import {
@@ -10,6 +14,10 @@ import SearchResult from "./SearchResult";
 import SearchBooksBar from "./SearchBooksBar";
 import "./search.css";
 
+/**
+ * React component rendered on "/search" page
+ *
+ */
 class Search extends Component {
   state = {
     books: [],
@@ -18,7 +26,7 @@ class Search extends Component {
   };
 
   /**
-   * Method to search books by author's name or book title
+   * @description Method to search books by author's name or book title
    *
    * @param {string} value Name of the author or title of the book
    * @returns {void}
@@ -56,7 +64,7 @@ class Search extends Component {
   };
 
   /**
-   * Method to move a book from on shelf to another using the API
+   * @description Method to move a book from on shelf to another using the API
    *
    * @param {string} bookId An ID of the book.
    * @param {string} shelf Identifier for a shelf book should be moved to.

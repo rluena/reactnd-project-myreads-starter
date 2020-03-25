@@ -1,7 +1,16 @@
+/**
+ * @module Pages/SearchResult
+ */
+
 import React from "react";
 import PropTypes from "prop-types";
 import Book from "../../Components/Modules/Book";
 
+/**
+ * React component that holding search results
+ *
+ * @param {Object} props
+ */
 const SearchResult = ({ books, updateBookShelf }) => {
   return (
     <div className="search-books__results">

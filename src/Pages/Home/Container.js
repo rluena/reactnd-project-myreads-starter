@@ -10,6 +10,10 @@ import Button from "../../Components/Elements/Button";
 import Spinner from "../../Components/Modules/Spinner";
 import "./main.css";
 
+/**
+ * React component rendered on "/" page
+ *
+ */
 class Home extends Component {
   state = {
     isLoading: true,
@@ -22,7 +26,7 @@ class Home extends Component {
   };
 
   /**
-   * Retreiving all user's books from the API
+   * @description Retreiving all user's books from the API
    */
   getAllBooks = async () => {
     try {
@@ -39,7 +43,7 @@ class Home extends Component {
   };
 
   /**
-   * Method to move a book from on shelf to another using the API
+   * @description Method to move a book from on shelf to another using the API
    *
    * @param {string} bookId An ID of the book.
    * @param {string} shelf Identifier for a shelf book should be moved to.
