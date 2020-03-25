@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import BookCard from "./Modules/Book";
+import BookCard from "../Modules/Book";
 import "./bookshelf.css";
 
 const Bookshelf = ({ title, books, updateBookShelf }) => {
