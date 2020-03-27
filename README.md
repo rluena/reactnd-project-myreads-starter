@@ -22,7 +22,7 @@ This application is connected to the udacity's APIs in the backend. You can sear
 
 ## Contribution
 
-This project is part of an assignment from React Nanodegree, it was meant to be done by the participant student. We don't accepted pull requests to this repository.
+This project is part of an assignment from React Nanodegree, it was meant to be done by the participant student. We don't accept pull requests to this repository.
 
 ## License
 
