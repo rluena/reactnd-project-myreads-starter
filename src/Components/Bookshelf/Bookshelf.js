@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import BookCard from "../Modules/Book";
 import "./bookshelf.css";
 
-const Bookshelf = ({ title, books, updateBookShelf }) => {
+const Bookshelf = ({ shelf, books, updateBookShelf }) => {
+  const shelfBooks = books.filter(book => book.shelf === shelf.key);
+
   return (
     <div className="bookshelf">
-      <h2 className="bookshelf__title">{title}</h2>
+      <h2 className="bookshelf__title">{shelf.title}</h2>
       <div className="bookshelf__books">
         <ol className="books-grid">
-          {books.map(book => {
+          {shelfBooks.map(book => {
             return (
               <li key={book.id}>
                 <BookCard book={book} updateBookShelf={updateBookShelf} />
@@ -23,9 +25,12 @@ const Bookshelf = ({ title, books, updateBookShelf }) => {
 };
 
 Bookshelf.propTypes = {
-  title: PropTypes.string.isRequired,
-  updateBookShelf: PropTypes.func.isRequired,
-  books: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired
+  books: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  shelf: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  }).isRequired,
+  updateBookShelf: PropTypes.func.isRequired
 };
 
 export default Bookshelf;

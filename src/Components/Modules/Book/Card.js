@@ -5,6 +5,10 @@ import "./card.css";
 
 const Card = ({ book, updateBookShelf }) => {
   const { shelf, title, authors, id: bookId } = book;
+  const bookImage =
+    book.imageLinks && book.imageLinks.thumbnail
+      ? book.imageLinks.thumbnail
+      : "";
 
   return (
     <div className="book">
@@ -14,7 +18,7 @@ const Card = ({ book, updateBookShelf }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${book.imageLinks.thumbnail})`
+            backgroundImage: `url(${bookImage})`
           }}
         ></div>
         <div className="book__shelf-changer">
@@ -38,9 +42,7 @@ const Card = ({ book, updateBookShelf }) => {
             <option value="read" disabled={shelf === "read"}>
               Read
             </option>
-            <option value="none" disabled={!shelf || shelf === "none"}>
-              None
-            </option>
+            <option value="none">None</option>
           </Select>
         </div>
       </div>

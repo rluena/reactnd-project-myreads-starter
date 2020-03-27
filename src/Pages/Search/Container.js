@@ -21,6 +21,7 @@ import "./search.css";
 class Search extends Component {
   state = {
     books: [],
+    noResultFound: false,
     error: null,
     isLoading: false
   };
@@ -28,27 +29,28 @@ class Search extends Component {
   /**
    * @description Method to search books by author's name or book title
    *
-   * @param {string} value Name of the author or title of the book
+   * @param {string} searchTerm Name of the author or title of the book
    * @returns {void}
    */
-  searchABookByAuthorOrTitle = async value => {
+  searchABookByAuthorOrTitle = async searchTerm => {
     try {
       this.setState({ isLoading: true });
 
-      const response = await search(value);
+      const response = await search(searchTerm);
 
       // Sometimes response value is an object when error returned by an API.
       // Which was suppose to be caught as an error and handled down below.
-      if (Array.isArray(response)) {
+      if (Array.isArray(response) && response.length) {
         // Filter books without thumbnail
         const filteredBooks = filterBooksWithoutThumbnail(response);
 
-        // Result from from search api do not show shelf status of a book. From
+        // Result from search api do not show shelf status of a book. From
         // that case we shold check if a book is already added in any user's shelf.
         const checkedBooks = checkIfBooksAreInUserShelves(filteredBooks);
 
         this.setState({
           books: checkedBooks,
+          noResultFound: false,
           isLoading: false,
           error: null
         });
@@ -57,9 +59,18 @@ class Search extends Component {
       }
 
       // If search fails we empty previous result.
-      this.setState({ isLoading: false, books: [] });
+      this.setState({
+        isLoading: false,
+        books: [],
+        noResultFound: searchTerm.length > 0 ? true : false
+      });
     } catch (error) {
-      this.setState({ books: [], error, isLoading: false });
+      this.setState({
+        books: [],
+        error,
+        isLoading: false,
+        noResultFound: searchTerm.length > 0 ? true : false
+      });
     }
   };
 
@@ -108,6 +119,7 @@ class Search extends Component {
         <SearchResult
           books={this.state.books}
           updateBookShelf={this.updateBookShelf}
+          noResultFound={this.state.noResultFound}
         />
       </div>
     );

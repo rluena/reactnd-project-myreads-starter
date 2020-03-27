@@ -5,6 +5,7 @@ import {
   checkIfBooksAreInUserShelves
 } from "../../utils/index";
 import { getAll, update } from "../../BooksAPI";
+import bookShelves from "../../utils/shelves.json";
 import Bookshelf from "../../Components/Bookshelf";
 import Button from "../../Components/Elements/Button";
 import Spinner from "../../Components/Modules/Spinner";
@@ -78,14 +79,6 @@ class Home extends Component {
   render() {
     const { books, isLoading } = this.state;
 
-    const currentlyReadingBooks = books.filter(
-      book => book.shelf === "currentlyReading"
-    );
-
-    const wantToReadBooks = books.filter(book => book.shelf === "wantToRead");
-
-    const readBooks = books.filter(book => book.shelf === "read");
-
     return (
       <div className="list-books">
         <div className="list-books__title">
@@ -95,21 +88,14 @@ class Home extends Component {
         {/* START: LISTING BOOK SHELVES */}
         <div className="list-books__content">
           <div>
-            <Bookshelf
-              title="Currently Reading"
-              books={currentlyReadingBooks}
-              updateBookShelf={this.updateBookShelf}
-            />
-            <Bookshelf
-              title="Want to Read"
-              books={wantToReadBooks}
-              updateBookShelf={this.updateBookShelf}
-            />
-            <Bookshelf
-              title="Read"
-              books={readBooks}
-              updateBookShelf={this.updateBookShelf}
-            />
+            {bookShelves.map(shelf => (
+              <Bookshelf
+                key={shelf.key}
+                shelf={shelf}
+                books={books}
+                updateBookShelf={this.updateBookShelf}
+              />
+            ))}
           </div>
         </div>
         {/* END: LISTING BOOK SHELVES */}

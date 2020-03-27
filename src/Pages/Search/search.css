@@ -24,3 +24,11 @@
 .search-books__results {
   padding: 80px 10px 20px;
 }
+
+.search-books__not-found {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
