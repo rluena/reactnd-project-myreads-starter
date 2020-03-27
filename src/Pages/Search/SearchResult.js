@@ -16,7 +16,7 @@ const SearchResult = ({ books, updateBookShelf }) => {
     <div className="search-books__results">
       <ol className="books-grid">
         {books &&
-          books.length > 1 &&
+          books.length > 0 &&
           books.map(book => {
             const key = `result_${book.id}`;
             return (
