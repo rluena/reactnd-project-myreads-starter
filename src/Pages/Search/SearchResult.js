@@ -11,21 +11,27 @@ import Book from "../../Components/Modules/Book";
  *
  * @param {Object} props
  */
-const SearchResult = ({ books, updateBookShelf }) => {
+const SearchResult = ({ books, noResultFound, updateBookShelf }) => {
   return (
     <div className="search-books__results">
-      <ol className="books-grid">
-        {books &&
-          books.length > 0 &&
-          books.map(book => {
-            const key = `result_${book.id}`;
-            return (
-              <li key={key}>
-                <Book book={book} updateBookShelf={updateBookShelf} />
-              </li>
-            );
-          })}
-      </ol>
+      {!noResultFound && (
+        <ol className="books-grid">
+          {books &&
+            books.length > 0 &&
+            books.map(book => {
+              const key = `result_${book.id}`;
+              return (
+                <li key={key}>
+                  <Book book={book} updateBookShelf={updateBookShelf} />
+                </li>
+              );
+            })}
+        </ol>
+      )}
+
+      {noResultFound && (
+        <h6 className="search-books__not-found">No result found.</h6>
+      )}
     </div>
   );
 };
@@ -36,7 +42,8 @@ SearchResult.defaultProps = {
 
 SearchResult.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object),
-  updateBookShelf: PropTypes.func.isRequired
+  updateBookShelf: PropTypes.func.isRequired,
+  noResultFound: PropTypes.bool.isRequired
 };
 
 export default SearchResult;
